@@ -1,0 +1,43 @@
+options
+{
+  LOOKAHEAD=1;
+}
+
+PARSER_BEGIN(Regex)
+public class Regex {
+  public static void main(String args[]) {
+    Regex parser = new Regex(System.in);
+    try {
+      parser.S0();
+      System.out.println("String accepted!");
+    }
+    catch (TokenMgrError ex) {
+      System.out.println("String rejected!");
+    }
+    catch (ParseException ex) {
+      System.out.println("String rejected!");
+    }
+  }
+}
+PARSER_END(Regex)
+
+SKIP : 
+{
+  " " | "\t" | "\r"
+}
+
+TOKEN : 
+{
+  < EXPR1: (("a")* "b" ("b")*) >
+  |
+  < EXPR2: "a" ("a")* "b" ("c")* >
+  |
+  < EXPR3: "e" "f" >
+  |
+  < LF: "\n" >
+}
+
+void S0() : {}
+{
+  ( < EXPR1 > | < EXPR2 > | < EXPR3 > ) < LF >
+}

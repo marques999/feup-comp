@@ -1,0 +1,8 @@
+PARSER_BEGIN(Exemplo)// código Java que invoca o parser
+public class Exemplo{  public static void main(String args []) throws ParseException  {    // criação do objecto utilizando o constructor com argumento para
+    // ler do standard input (teclado)
+    Exemplo parser = new Exemplo(System.in);    parser.Aritm();  }}PARSER_END(Exemplo)// símbolos que não devem ser considerados na análise
+SKIP :{  " "| "\t"| "\r"}// definição dos tokens (símbolos terminais)
+TOKEN :{  < INTEGER : ([ "0"-"9" ])+ >| < LF : "\n" >}// definição da produção
+void Aritm() :{}{  // Podemos associar às funções referentes aos símbolos não-terminais  // pedaços de código Java. Por exemplo, as modificações apresentadas  // de seguida permitem escrever no ecrã mensagens a indicar os números  // que são lidos pelo parser:  t1 = < INTEGER >  {    System.out.println("Integer = " + t1.image);  }  (    (      "+"    | "-"    )    // Por cada símbolo terminal <INTEGER>, foi inserida uma linha de código    // Java que imprime no ecrã o valor do token lido (o atributo image da    // classe Token retorna uma String representativa do valor do token <t2>    t2 = < INTEGER >    {      System.out.println("Integer = " + t2.image);    }  )?  < LF > // “(...)?” é equivalente a “[...]”
+}

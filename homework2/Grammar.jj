@@ -1,0 +1,57 @@
+options
+{
+  LOOKAHEAD=1;
+}
+
+PARSER_BEGIN(Grammar)
+public class Grammar {
+  public static void main(String args[]) {
+    Grammar parser = new Grammar(System.in);
+    try {
+      parser.S0();
+      System.out.println("String accepted!");
+    }
+    catch (TokenMgrError ex) {
+      System.out.println("String rejected!");
+    }
+    catch (ParseException ex) {
+      System.out.println("String rejected!");
+    }
+  }
+}
+PARSER_END(Grammar)
+
+SKIP :
+{
+  " " | "\t" | "\r"
+}
+
+TOKEN :
+{
+  < LF: "\n" >
+}
+
+void S0() : {}
+{
+  "a" S1() | "b" S6() | ("ef" < LF >)
+}
+
+void S1() : {}
+{
+  "a" S1() | "b" S2()
+}
+
+void S2() : {}
+{
+  "b" S6() | "c" S4() | < LF >
+}
+
+void S4() : {}
+{
+  "c" S4() | < LF >
+}
+
+void S6() : {}
+{
+  "b" S6() | < LF >
+}
