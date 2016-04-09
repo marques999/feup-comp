@@ -1,0 +1,11 @@
+{
+  "name": "LocalVariableReference",
+  "content": "c",
+  "children": [
+    {
+      "name": "TypeReference",
+      "content": "long",
+      "children": []
+    }
+  ]
+}

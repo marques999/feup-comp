@@ -1,3 +1,4 @@
+package comp.dot;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -12,14 +13,7 @@ import java.util.List;
 
 public class DotGraph
 {
-	/**
-	 * The directory where temporary files will be placed
-	 */
 	private final String TEMP_DIR = "output";
-
-	/**
-	 * Where is your dot program located? It will be called externally
-	 */
 	private final String DOT_PATH = "dot";
 
 	/**

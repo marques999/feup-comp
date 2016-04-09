@@ -1,4 +1,8 @@
-public class CppDependency
+package comp.pdg;
+
+import comp.dot.DotGraph;
+
+public class JavaTest
 {
 	public static void main(String[] args)
 	{
@@ -19,6 +23,6 @@ public class CppDependency
 		g.setEdgeColor("green");
 		g.connectDirected("B", "D", "Z");
 		g.generateDotFile("myGraph.dot");
-		g.outputGraph("png", "dot");
+		g.outputGraph("pdf", "dot");
 	}
 }

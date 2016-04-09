@@ -1,3 +1,4 @@
+package comp.dot;
 public class DotVertex
 {
 	private int count;

@@ -1,0 +1,11 @@
+{
+                        "name": "Literal",
+                        "content": "3",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:3)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "int",
+                           "children": []
+                        }]
+                     }
