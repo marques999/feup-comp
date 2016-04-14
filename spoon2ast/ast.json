@@ -1,0 +1,189 @@
+{
+   "name": "Root",
+   "children": [
+   {
+      "name": "RootPackage",
+      "content": "",
+      "children": [
+      {
+         "name": "Package",
+         "content": "unnamed package",
+         "children": [
+         {
+            "name": "Class",
+            "content": "Mini",
+            "code": "(/Users/MARQUES/Desktop/mini.java:1)",
+            "children": [
+            {
+               "name": "Constructor",
+               "content": "Mini()",
+               "code": "(/Users/MARQUES/Desktop/mini.java:1)",
+               "children": [
+               {
+                  "name": "Block",
+                  "code": "(/Users/MARQUES/Desktop/mini.java:1)",
+                  "children": [
+                  {
+                     "name": "Invocation",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:1)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "Object",
+                        "children": [
+                        {
+                           "name": "PackageReference",
+                           "content": "java.lang",
+                           "children": [],
+                        }],
+                     },
+                     {
+                        "name": "ExecutableReference",
+                        "content": "<init>",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "Object",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": [],
+                           }],
+                        },
+                        {
+                           "name": "TypeReference",
+                           "content": "Object",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": [],
+                           }],
+                        }],
+                     }],
+                  }],
+               }],
+            },
+            {
+               "name": "Method",
+               "content": "myFunction",
+               "code": "(/Users/MARQUES/Desktop/mini.java:2)",
+               "children": [
+               {
+                  "name": "TypeReference",
+                  "content": "void",
+                  "children": [],
+               },
+               {
+                  "name": "Block",
+                  "children": [
+                  {
+                     "name": "LocalVariable",
+                     "content": "i",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:3)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "int",
+                        "children": [],
+                     },
+                     {
+                        "name": "Literal",
+                        "content": "5",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:3)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "int",
+                           "children": [],
+                        }],
+                     }],
+                  },
+                  {
+                     "name": "While",
+                     "children": [
+                     {
+                        "name": "BinaryOperator",
+                        "content": ">",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:4)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "boolean",
+                           "children": [],
+                        },
+                        {
+                           "name": "VariableRead",
+                           "code": "(/Users/MARQUES/Desktop/mini.java:4)",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "int",
+                              "children": [],
+                           },
+                           {
+                              "name": "LocalVariableReference",
+                              "content": "i",
+                              "children": [
+                              {
+                                 "name": "TypeReference",
+                                 "content": "int",
+                                 "children": [],
+                              }],
+                           }],
+                        },
+                        {
+                           "name": "Literal",
+                           "content": "0",
+                           "code": "(/Users/MARQUES/Desktop/mini.java:4)",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "int",
+                              "children": [],
+                           }],
+                        }],
+                     },
+                     {
+                        "name": "Block",
+                        "children": [
+                        {
+                           "name": "UnaryOperator",
+                           "content": "_--",
+                           "code": "(/Users/MARQUES/Desktop/mini.java:6)",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "int",
+                              "children": [],
+                           },
+                           {
+                              "name": "VariableRead",
+                              "code": "(/Users/MARQUES/Desktop/mini.java:6)",
+                              "children": [
+                              {
+                                 "name": "TypeReference",
+                                 "content": "int",
+                                 "children": [],
+                              },
+                              {
+                                 "name": "LocalVariableReference",
+                                 "content": "i",
+                                 "children": [
+                                 {
+                                    "name": "TypeReference",
+                                    "content": "int",
+                                    "children": [],
+                                 }],
+                              }],
+                           }],
+                        }],
+                     }],
+                  }],
+               }],
+            }],
+         }],
+      }],
+   }],
+}
