@@ -12,20 +12,20 @@
          {
             "name": "Class",
             "content": "Mini",
-            "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:1)",
+            "code": "(/Users/MARQUES/Desktop/mini.java:1)",
             "children": [
             {
                "name": "Constructor",
                "content": "Mini()",
-               "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:1)",
+               "code": "(/Users/MARQUES/Desktop/mini.java:1)",
                "children": [
                {
                   "name": "Block",
-                  "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:1)",
+                  "code": "(/Users/MARQUES/Desktop/mini.java:1)",
                   "children": [
                   {
                      "name": "Invocation",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:1)",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:1)",
                      "children": [
                      {
                         "name": "TypeReference",
@@ -68,11 +68,11 @@
             {
                "name": "Method",
                "content": "myFunction",
-               "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:2)",
+               "code": "(/Users/MARQUES/Desktop/mini.java:2)",
                "children": [
                {
                   "name": "TypeReference",
-                  "content": "void",
+                  "content": "long",
                   "children": []
                },
                {
@@ -80,8 +80,8 @@
                   "children": [
                   {
                      "name": "LocalVariable",
-                     "content": "i",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:3)",
+                     "content": "a",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:3)",
                      "children": [
                      {
                         "name": "TypeReference",
@@ -90,8 +90,8 @@
                      },
                      {
                         "name": "Literal",
-                        "content": "5",
-                        "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:3)",
+                        "content": "3",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:3)",
                         "children": [
                         {
                            "name": "TypeReference",
@@ -101,21 +101,50 @@
                      }]
                   },
                   {
-                     "name": "While",
+                     "name": "LocalVariable",
+                     "content": "b",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:4)",
                      "children": [
                      {
-                        "name": "BinaryOperator",
-                        "content": ">",
-                        "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:4)",
+                        "name": "TypeReference",
+                        "content": "long",
+                        "children": []
+                     },
+                     {
+                        "name": "Literal",
+                        "content": "2L",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:4)",
                         "children": [
                         {
                            "name": "TypeReference",
-                           "content": "boolean",
+                           "content": "long",
+                           "children": []
+                        }]
+                     }]
+                  },
+                  {
+                     "name": "LocalVariable",
+                     "content": "c",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:5)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "long",
+                        "children": []
+                     },
+                     {
+                        "name": "BinaryOperator",
+                        "content": "*",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:5)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "long",
                            "children": []
                         },
                         {
                            "name": "VariableRead",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:4)",
+                           "code": "(/Users/MARQUES/Desktop/mini.java:5)",
                            "children": [
                            {
                               "name": "TypeReference",
@@ -124,7 +153,7 @@
                            },
                            {
                               "name": "LocalVariableReference",
-                              "content": "i",
+                              "content": "a",
                               "children": [
                               {
                                  "name": "TypeReference",
@@ -134,49 +163,48 @@
                            }]
                         },
                         {
-                           "name": "Literal",
-                           "content": "0",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:4)",
+                           "name": "VariableRead",
+                           "code": "(/Users/MARQUES/Desktop/mini.java:5)",
                            "children": [
                            {
                               "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           }]
-                        }]
-                     },
-                     {
-                        "name": "Block",
-                        "children": [
-                        {
-                           "name": "UnaryOperator",
-                           "content": "_--",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:6)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
+                              "content": "long",
                               "children": []
                            },
                            {
-                              "name": "VariableRead",
-                              "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/sample.java:6)",
+                              "name": "LocalVariableReference",
+                              "content": "b",
                               "children": [
                               {
                                  "name": "TypeReference",
-                                 "content": "int",
+                                 "content": "long",
                                  "children": []
-                              },
-                              {
-                                 "name": "LocalVariableReference",
-                                 "content": "i",
-                                 "children": [
-                                 {
-                                    "name": "TypeReference",
-                                    "content": "int",
-                                    "children": []
-                                 }]
                               }]
+                           }]
+                        }]
+                     }]
+                  },
+                  {
+                     "name": "Return",
+                     "code": "(/Users/MARQUES/Desktop/mini.java:6)",
+                     "children": [
+                     {
+                        "name": "VariableRead",
+                        "code": "(/Users/MARQUES/Desktop/mini.java:6)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "long",
+                           "children": []
+                        },
+                        {
+                           "name": "LocalVariableReference",
+                           "content": "c",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "long",
+                              "children": []
                            }]
                         }]
                      }]
