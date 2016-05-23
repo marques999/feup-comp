@@ -1,0 +1,1 @@
+dot -Tpng myGraph.dot -o e.png
