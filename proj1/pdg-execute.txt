@@ -1,1 +1,1 @@
-dot -Tpng myGraph.dot -o e.png
+dot -Tpng myGraph.dot -o pdg-example.png
