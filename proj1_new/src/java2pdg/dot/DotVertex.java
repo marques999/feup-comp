@@ -1,4 +1,5 @@
-package dot;
+package java2pdg.dot;
+
 public class DotVertex
 {
 	private int count;

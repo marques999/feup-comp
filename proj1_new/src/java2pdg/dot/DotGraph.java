@@ -1,4 +1,4 @@
-package dot;
+package java2pdg.dot;
 
 import java.awt.Desktop;
 

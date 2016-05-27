@@ -1,8 +1,9 @@
-package analyser;
+package java2pdg;
 
-import data.AST;
+import java2pdg.analyser.AST;
+import java2pdg.analyser.Visitor;
 
-public class AnalyseAst
+public class Java2Pdg
 {
 	private static AST ast;
 	private static Visitor visitor;
@@ -25,6 +26,6 @@ public class AnalyseAst
 
 	public static void setVisitor(final Visitor visitor)
 	{
-		AnalyseAst.visitor = visitor;
+		Java2Pdg.visitor = visitor;
 	}
 }
