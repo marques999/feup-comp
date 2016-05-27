@@ -1,0 +1,4 @@
+digraph ABCD {
+0: int a = 3 -> 1: long b = 2L [label="0",color=blue,fontcolor=blue,style=dotted];
+1: long b = 2L -> 2: long c = a*b [label="1",color=blue,fontcolor=blue,style=dotted];
+}
