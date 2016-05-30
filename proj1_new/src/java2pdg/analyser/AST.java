@@ -33,7 +33,7 @@ public class AST
 	{
 		try (final BufferedReader in = Files.newBufferedReader(FileSystems.getDefault().getPath(astFile), StandardCharsets.UTF_8))
 		{
-			ast = (JsonObject) Json.parse(in).asObject();
+			ast = Json.parse(in).asObject();
 		}
 		catch (final IOException ex)
 		{

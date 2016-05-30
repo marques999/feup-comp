@@ -10,7 +10,7 @@ public class Java2Pdg
 
 	public static void main(String args[])
 	{
-		ast = new AST("ast.json");
+		ast = new AST("/home/pedro/IdeaProjects/feup-comp/proj1_new/ast.json");
 		visitor = new Visitor(ast);
 	}
 

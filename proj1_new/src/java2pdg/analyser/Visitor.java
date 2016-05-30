@@ -54,8 +54,8 @@ public class Visitor {
 		System.out.println("DEF " + def);
 		System.out.println("USE " + use);
 		
-		graph.generateDotFile("myGraph.dot");
-		graph.outputGraph("pdf", "dot");
+		graph.generateDotFile("/home/pedro/myGraph.dot");
+		graph.outputGraph("png", "dot");
 	}
 	
 	public ArrayList<String> exploreNode(JsonValue jsonValue, String prevStartNode) throws JsonValueException
@@ -73,6 +73,7 @@ public class Visitor {
 			
 			// falta analisar case
 			graph.pushVertex(childStartingNode);
+			graph.setVertexShape(childStartingNode, "box");
 			graph.connectDirected(startNode, childStartingNode, newEdgeName());
 			
 			exitNodes.add(childStartingNode);
@@ -124,6 +125,7 @@ public class Visitor {
 		final String childStartingNode = newNodeName() + ": " + conditionString;
 
 		graph.pushVertex(childStartingNode);
+		graph.setVertexShape(childStartingNode, "box");
 		saveDataFlow(childStartingNode);
 		
 		// connect condition node to previous child end nodes
@@ -168,7 +170,8 @@ public class Visitor {
 		final String childStartingNode = newNodeName() + ": " + conditionString;
 		
 		System.out.println(childStartingNode);
-		graph.pushVertex(childStartingNode);	
+		graph.pushVertex(childStartingNode);
+		graph.setVertexShape(childStartingNode, "box");
 		saveDataFlow(childStartingNode);
 		
 		// connect condition node to previous child end nodes
@@ -201,7 +204,8 @@ public class Visitor {
 		final String childStartingNode = newNodeName() + ": " + conditionString;
 		
 		System.out.println(childStartingNode);
-		graph.pushVertex(childStartingNode);	
+		graph.pushVertex(childStartingNode);
+		graph.setVertexShape(childStartingNode, "box");
 		saveDataFlow(childStartingNode);
 		
 		// connect condition node to previous child end nodes
@@ -231,8 +235,9 @@ public class Visitor {
 		final JsonObject assignmentNode = parseJsonObject(children.get(0));
 		final String assignment = processGeneric(assignmentNode);
 		final String assignmentString = newNodeName() + ": " + assignment;
-		
+
 		graph.pushVertex(assignmentString);
+		graph.setVertexShape(assignmentString, "box");
 		saveDataFlow(assignmentString);
 		
 		// connect assignment node to previous child end nodes
@@ -249,6 +254,7 @@ public class Visitor {
 		
 		// connect condition node to previous child end nodes
 		graph.pushVertex(conditionString);
+		graph.setVertexShape(conditionString, "box");
 		graph.connectDirected(assignmentString, conditionString, newEdgeName());
 		saveDataFlow(conditionString);
 		
@@ -258,6 +264,7 @@ public class Visitor {
 		
 		// connect statement node to previous child end nodes
 		graph.pushVertex(statementString);
+		graph.setVertexShape(statementString, "box");
 		graph.connectDirected(conditionString, statementString, newEdgeName());	
 		saveDataFlow(statementString);
 		
@@ -271,8 +278,9 @@ public class Visitor {
 		final String childStartingNode =  currentName + ": "+ processGeneric(currentNode);
 
 		System.out.println(childStartingNode);
-		
+
 		graph.pushVertex(currentName);
+		graph.setVertexShape(currentName, "box");
 		graph.setVertexLabel(currentName, childStartingNode);
 		saveDataFlow(childStartingNode);
 
