@@ -17,8 +17,8 @@ public class JavaVisitor
 
 	public JavaVisitor()
 	{
-		nodeCounter = 1;
-		edgeCounter = 1;
+		nodeCounter = 0;
+		edgeCounter = 0;
 	}
 
 	final DotGraph graph = Java2Pdg.getGraph();
@@ -67,7 +67,7 @@ public class JavaVisitor
 
 	final String generateNodeIdentifier()
 	{
-		return Integer.toString(nodeCounter++);
+		return Integer.toString(++nodeCounter);
 	}
 
 	final void connectControlEdge(final String targetId, final String sourceId)
@@ -77,7 +77,7 @@ public class JavaVisitor
 
 	final String generateEdgeIdentifier()
 	{
-		return Integer.toString(edgeCounter++);
+		return Integer.toString(++edgeCounter);
 	}
 
 	void pushVertex(final String nodeId, final String nodeLabel)
@@ -91,5 +91,9 @@ public class JavaVisitor
 	{
 		graph.pushVertex(nodeId);
 		graph.setVertexLabel(nodeId, nodeLabel);
+	}
+
+	final int getLastNode(){
+		return nodeCounter;
 	}
 }

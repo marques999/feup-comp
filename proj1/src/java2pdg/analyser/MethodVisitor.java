@@ -1,6 +1,7 @@
 package java2pdg.analyser;
 
-import java.util.ArrayList;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import eclipsesource.json.JsonArray;
 import eclipsesource.json.JsonObject;
@@ -60,12 +61,8 @@ public class MethodVisitor extends JavaVisitor
 		methodName += ")";
 		exploreNode(objectContent.get(blockPosition), exitNodes);
 		
-	/*final ArrayList<String> lastNode = exploreNode(objectContent.get(1), exitNodes);
-		
-		if (returnMissing)
-		{
-			defaultReturn(lastNode);
-		}*/
+		System.out.println("USE: " + use);
+		System.out.println("DEF: " + def);
 	}
 
 	private void visitParameters(final String nodeIdentifier)
@@ -118,7 +115,7 @@ public class MethodVisitor extends JavaVisitor
 			
 			i = 1;	
 			exitNodes.add(childStartingNode);
-			saveDataFlow(childStartingNode);		
+			saveDataFlow(childStartingNode);
 		}
 		else if (startNodes != null)
 		{
@@ -255,7 +252,7 @@ public class MethodVisitor extends JavaVisitor
 		final String conditionLabel = conditionNodeId + ": " + conditionNode;
 
 		pushVertex(conditionVertex, conditionLabel);
-		saveDataFlow(conditionLabel);
+		saveDataFlow(conditionNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
@@ -299,7 +296,7 @@ public class MethodVisitor extends JavaVisitor
 		final String conditionLabel = conditionNodeId + ": " + conditionNode;
 
 		pushVertex(conditionVertex, conditionLabel);
-		saveDataFlow(conditionLabel);
+		saveDataFlow(conditionNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
@@ -354,7 +351,7 @@ public class MethodVisitor extends JavaVisitor
 		
 		pushVertex(conditionVertex, conditionLabel);
 		pushVertex(startNodeVertex, startNodeLabel);
-		saveDataFlow(conditionVertex);
+		saveDataFlow(startNodeId);
 
 		for (final String previousNode : exitNodes)
 		{
@@ -406,7 +403,7 @@ public class MethodVisitor extends JavaVisitor
 		final String conditionLabel = conditionNodeId + ": if (" + conditionNode + ")";
 
 		pushDiamond(conditionVertex, conditionLabel);
-		saveDataFlow(conditionLabel);
+		saveDataFlow(conditionNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
@@ -462,7 +459,7 @@ public class MethodVisitor extends JavaVisitor
 		final String assignmentLabel = assignmentNodeId + ": " + assignmentNode;
 
 		pushVertex(assignmentNodeVertex, assignmentLabel);
-		saveDataFlow(assignmentLabel);
+		saveDataFlow(assignmentNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
@@ -490,7 +487,7 @@ public class MethodVisitor extends JavaVisitor
 		argumentList.clear();
 		argumentList.add(conditionVertex);
 		exitNodes.addAll(exploreNode(children.get(3), argumentList));
-		saveDataFlow(conditionLabel);
+		saveDataFlow(conditionNodeId);
 
 		//+----------------------+//
 		//|PROCESS STATEMENT NODE|//
@@ -520,7 +517,7 @@ public class MethodVisitor extends JavaVisitor
 		
 		continueNodes.clear();
 		exitNodes.add(conditionVertex);
-		saveDataFlow(statementLabel);
+		saveDataFlow(statementNodeId);
 	}
 
 	private void visitDefault(final ArrayList<String> exitNodes, final JsonObject currentNode) throws JsonValueException
@@ -531,7 +528,8 @@ public class MethodVisitor extends JavaVisitor
 
 		System.out.println(defaultLabel);
 		pushVertex(defaultVertex, defaultLabel);
-		saveDataFlow(defaultLabel);
+		saveDataFlow(defaultNodeId);
+
 
 		for (final String previousNodeId : exitNodes)
 		{

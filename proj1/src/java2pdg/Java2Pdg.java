@@ -28,7 +28,7 @@ public class Java2Pdg
 
 		try
 		{
-			parseFile("FirstTest.json");
+			parseFile("/home/pedro/IdeaProjects/feup-comp/proj1/test/Teste.json");
 		}
 		catch (final IOException ex)
 		{
@@ -47,6 +47,7 @@ public class Java2Pdg
 
 		graph.generateDotFile("myGraph.dot");
 		graph.outputGraph("png", "dot");
+
 	}
 
 	public static DotGraph getGraph()
