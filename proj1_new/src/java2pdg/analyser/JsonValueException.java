@@ -1,6 +1,6 @@
 package java2pdg.analyser;
 
-import com.eclipsesource.json.JsonValue;
+import eclipsesource.json.JsonValue;
 
 public class JsonValueException extends Exception
 {

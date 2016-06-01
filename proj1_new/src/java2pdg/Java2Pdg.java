@@ -1,31 +1,75 @@
 package java2pdg;
 
-import java2pdg.analyser.AST;
-import java2pdg.analyser.Visitor;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+
+import eclipsesource.json.Json;
+import eclipsesource.json.JsonObject;
+
+import java2pdg.analyser.JsonValueException;
+import java2pdg.analyser.RootVisitor;
+
+import java2pdg.dot.DotGraph;
 
 public class Java2Pdg
 {
-	private static AST ast;
-	private static Visitor visitor;
+	private static DotGraph graph;
 
 	public static void main(String args[])
 	{
-		ast = new AST("/home/pedro/IdeaProjects/feup-comp/proj1_new/ast.json");
-		visitor = new Visitor(ast);
+		graph = new DotGraph("ABCD");
+		graph.setEdgeColor("blue");
+		graph.setEdgeStyle("dotted");
+		graph.setDpi(15);
+
+		try
+		{
+			parseFile("FirstTest.json");
+		}
+		catch (final IOException ex)
+		{
+			ex.printStackTrace();
+			System.exit(1);
+		}
+
+		try
+		{
+			new RootVisitor(ast);
+		}
+		catch (JsonValueException ex)
+		{
+			ex.printStackTrace();
+		}
+
+		graph.generateDotFile("myGraph.dot");
+		graph.outputGraph("png", "dot");
 	}
 
-	public static AST getAST()
+	public static DotGraph getGraph()
+	{
+		return graph;
+	}
+
+	private static JsonObject ast;
+
+	private static void parseFile(String astFile) throws IOException
+	{
+		try (final BufferedReader in = Files.newBufferedReader(FileSystems.getDefault().getPath(astFile), StandardCharsets.UTF_8))
+		{
+			ast = Json.parse(in).asObject();
+		}
+		catch (final IOException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public JsonObject getTree()
 	{
 		return ast;
-	}
-
-	public static Visitor getVisitor()
-	{
-		return visitor;
-	}
-
-	public static void setVisitor(final Visitor visitor)
-	{
-		Java2Pdg.visitor = visitor;
 	}
 }

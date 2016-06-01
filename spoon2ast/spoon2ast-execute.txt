@@ -1,0 +1,1 @@
+java –jar spoon2ast.jar <input>.java

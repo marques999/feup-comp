@@ -39,24 +39,22 @@ public class DotEdge
 
 	public void reset(final DotGraph dotGraph)
 	{
-		if (!styleEnabled)
+		if (styleEnabled)
 		{
-			return;
-		}
+			if (edgeColor != null)
+			{
+				dotGraph.resetEdgeColor();
+			}
 
-		if (edgeColor != null)
-		{
-			dotGraph.resetEdgeColor();
-		}
+			if (edgeStyle != null)
+			{
+				dotGraph.resetEdgeStyle();
+			}
 
-		if (edgeStyle != null)
-		{
-			dotGraph.resetEdgeStyle();
-		}
-
-		if (edgeWidth > 0.0f)
-		{
-			dotGraph.resetEdgeWidth();
+			if (edgeWidth > 0.0f)
+			{
+				dotGraph.resetEdgeWidth();
+			}
 		}
 	}
 }

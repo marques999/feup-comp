@@ -19,12 +19,6 @@ public class DotGraph
 	private final String TEMP_DIR = "output";
 	private final String DOT_PATH = "dot";
 
-	/**
-	 * Resolução da imagem em pontos por polegada (DPI)
-	 * Valor por omissão: 96 dpi
-	 * Valores superiores são 10% maiores em relação ao anterior.
-	 * Valores inferiores são 10% menores em relação ao posterior.
-	 */
 	private int[] dpiSizes =
 	{
 		46, 51, 57, 63, 70, 78, 86, 96, 106, 116, 128, 141, 155, 170, 187, 206, 226, 249
@@ -32,14 +26,6 @@ public class DotGraph
 
 	private HashMap<String, DotVertex> vertices = new HashMap<>();
 
-	/**
-	 * Define the index in the image size array.
-	 */
-	private int currentDpiPos = 7;
-
-	/**
-	 * increases the generated image size (in dpi)
-	 */
 	public void increaseDpi()
 	{
 		if (currentDpiPos < dpiSizes.length - 1)
@@ -47,10 +33,9 @@ public class DotGraph
 			++currentDpiPos;
 		}
 	}
-
-	/**
-	 * decreases the generated image size (in dpi)
-	 */
+	
+	private int currentDpiPos = 7;
+	
 	public void decreaseDpi()
 	{
 		if (currentDpiPos > 0)
@@ -67,9 +52,6 @@ public class DotGraph
 		}
 	}
 
-	/**
-	 * returns the current image size (in dpi)
-	 */
 	public int getDpi()
 	{
 		return dpiSizes[currentDpiPos];
@@ -85,9 +67,6 @@ public class DotGraph
 	private float edgeWidth;
 	private boolean subgraphClosed = true;
 
-	/**
-	 * Constructor: creates a new GraphViz object that will contain a graph.
-	 */
 	public DotGraph(final String paramName)
 	{
 		clearGraph();
@@ -289,15 +268,10 @@ public class DotGraph
 	 */
 	public void setEdgeColor(final String paramColor)
 	{
-		if (dotColors.contains(paramColor))
-		{
+	
 			edgeColor = paramColor;
 			edgeOptions++;
-		}
-		else
-		{
-			System.err.println("<[ERROR]> invalid color specified for graph edges, reverting...");
-		}
+
 	}
 
 	/**
@@ -420,14 +394,14 @@ public class DotGraph
 
 	public void connectDirected(final String nodeA, final String nodeB, final String edgeLabel)
 	{
-		connect(" -> ", edgeLabel, nodeA, nodeB);
+		connect(" -> ", null, nodeA, nodeB);
 	}
 
 	private List<String> edgeStyles = Arrays.asList(
 		"dashed", "dotted", "filled");
 
 	private List<String> vertexShapes = Arrays.asList(
-		"octagon", "box", "circle", "record");
+		"octagon", "box", "circle", "diamond", "folder", "component");
 
 	private List<String> dotColors = Arrays.asList(
 		"blue", "black", "red", "green", "yellow");

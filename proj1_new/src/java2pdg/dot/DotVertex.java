@@ -2,126 +2,126 @@ package java2pdg.dot;
 
 public class DotVertex
 {
-	private int count;
+	private int mCount;
 
 	public DotVertex(final String vertexName)
 	{
-		name = vertexName;
-		count = 0;
-		label = null;
-		color = null;
-		textColor = null;
-		shape = null;
+		nName = vertexName;
+		mCount = 0;
+		mLabel = null;
+		mVertexColor = null;
+		mTextColor = null;
+		mShape = null;
 	}
 
 	public int getCount()
 	{
-		return count;
+		return mCount;
 	}
 
-	private String name;
-	private String label;
-	private String color;
-	private String textColor;
-	private String shape;
+	private String nName;
+	private String mLabel;
+	private String mVertexColor;
+	private String mTextColor;
+	private String mShape;
 
 	public void setLabel(final String vertexLabel)
 	{
-		label = vertexLabel;
-		count++;
+		mLabel = vertexLabel;
+		mCount++;
 	}
 
 	public void resetLabel()
 	{
-		label = null;
-		count--;
+		mLabel = null;
+		mCount--;
 	}
 
 	public void setColor(final String vertexColor)
 	{
-		color = vertexColor;
-		count++;
+		mVertexColor = vertexColor;
+		mCount++;
 	}
 
 	public void resetColor()
 	{
-		color = null;
-		count--;
+		mVertexColor = null;
+		mCount--;
 	}
 
 	public void setShape(final String vertexShape)
 	{
-		shape = vertexShape;
-		count++;
+		mShape = vertexShape;
+		mCount++;
 	}
 
 	public void resetShape()
 	{
-		shape = null;
-		count--;
+		mShape = null;
+		mCount--;
 	}
 
-	public void setTextColor(final String vertexTextColor)
+	public void setTextColor(final String textColor)
 	{
-		textColor = vertexTextColor;
-		count++;
+		mTextColor = textColor;
+		mCount++;
 	}
 
 	public void resetTextColor()
 	{
-		textColor = null;
-		count--;
+		mTextColor = null;
+		mCount--;
 	}
 
 	public boolean hasProperties()
 	{
-		return count > 0;
+		return mCount > 0;
 	}
 
-	public void applyOptions(final StringBuilder graph)
+	public void applyOptions(final StringBuilder paramGraph)
 	{
 		int numberOptions = 0;
 
-		graph.append(name + " [");
+		paramGraph.append(nName + " [");
 
-		if (color != null)
+		if (mVertexColor != null)
 		{
-			graph.append("color=" + color);
+			paramGraph.append("color=" + mVertexColor);
 			numberOptions++;
 
-			if (numberOptions < count)
+			if (numberOptions < mCount)
 			{
-				graph.append(",");
+				paramGraph.append(",");
 			}
 		}
 
-		if (label != null)
+		if (mLabel != null)
 		{
-			graph.append("label=\"" + label + "\"");
+			paramGraph.append("label=\"" + mLabel + "\"");
 			numberOptions++;
 
-			if (numberOptions < count)
+			if (numberOptions < mCount)
 			{
-				graph.append(",");
+				paramGraph.append(",");
 			}
 		}
 
-		if (shape != null)
+		if (mShape != null)
 		{
-			graph.append("shape=" + shape);
+			paramGraph.append("shape=" + mShape);
 			numberOptions++;
 
-			if (numberOptions < count)
+			if (numberOptions < mCount)
 			{
-				graph.append(",");
+				paramGraph.append(",");
 			}
 		}
 
-		if (textColor != null)
+		if (mTextColor != null)
 		{
-			graph.append("textcolor=" + textColor);
+			paramGraph.append("textcolor=" + mTextColor);
 		}
 
-		graph.append("];\n");
+		paramGraph.append("];\n");
 	}
 }
