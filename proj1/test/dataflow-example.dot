@@ -1,0 +1,22 @@
+digraph ABCD {
+"test_param_x" [label="Parameter: x",shape=box];
+"test_1" [label="1: int a = x+3",shape=box];
+"test_0" [label="function: test"];
+"test_param_y" [label="Parameter: y",shape=box];
+"test_3" [label="3: int c = a*b",shape=box];
+"package_unnamed package" [label="Package: unnamed package",shape=folder];
+"test_2" [label="2: int b = y-2",shape=box];
+"test_4" [label="4: return c",shape=box];
+"class_FirstTest()" [label="Class: FirstTest()",shape=component];
+"package_unnamed package" -> "class_FirstTest()" [color=blue,fontcolor=blue,style=dotted];
+"class_FirstTest()" -> "test_0" [color=blue,fontcolor=blue,style=dotted];
+"test_param_x" -> "test_0" [color=blue,fontcolor=blue,style=dotted];
+"test_param_y" -> "test_0" [color=blue,fontcolor=blue,style=dotted];
+"test_0" -> "test_1" [color=blue,fontcolor=blue,style=dotted];
+"test_1" -> "test_2" [color=blue,fontcolor=blue,style=dotted];
+"test_2" -> "test_3" [color=blue,fontcolor=blue,style=dotted];
+"test_3" -> "test_4" [color=blue,fontcolor=blue,style=dotted];
+"test_2" -> "test_3" [label="<use>",color=red,fontcolor=red,style=dotted,];
+"test_1" -> "test_3" [label="<use>",color=red,fontcolor=red,style=dotted,];
+"test_3" -> "test_4" [label="<use>",color=red,fontcolor=red,style=dotted,];
+}

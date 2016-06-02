@@ -17,8 +17,6 @@ import java2pdg.dot.DotGraph;
 
 public class Java2Pdg
 {
-	private static DotGraph graph;
-
 	public static void main(String args[])
 	{
 		graph = new DotGraph("ABCD");
@@ -28,49 +26,36 @@ public class Java2Pdg
 
 		try
 		{
-			parseFile("/home/pedro/IdeaProjects/feup-comp/proj1/test/Teste.json");
+			new RootVisitor(parseFile("test/FirstTest.json"));
 		}
-		catch (final IOException ex)
+		catch (final IOException | JsonValueException ex)
 		{
 			ex.printStackTrace();
 			System.exit(1);
 		}
 
-		try
-		{
-			new RootVisitor(ast);
-		}
-		catch (JsonValueException ex)
-		{
-			ex.printStackTrace();
-		}
-
 		graph.generateDotFile("myGraph.dot");
-		graph.outputGraph("png", "dot");
-
+		graph.outputGraph("png", "neato");
 	}
+	
+	private static DotGraph graph;
 
 	public static DotGraph getGraph()
 	{
 		return graph;
 	}
 
-	private static JsonObject ast;
-
-	private static void parseFile(String astFile) throws IOException
+	private static JsonObject parseFile(String astFile) throws IOException
 	{
 		try (final BufferedReader in = Files.newBufferedReader(FileSystems.getDefault().getPath(astFile), StandardCharsets.UTF_8))
 		{
-			ast = Json.parse(in).asObject();
+			return Json.parse(in).asObject();
 		}
 		catch (final IOException ex)
 		{
 			ex.printStackTrace();
 		}
-	}
-
-	public JsonObject getTree()
-	{
-		return ast;
+		
+		return null;
 	}
 }

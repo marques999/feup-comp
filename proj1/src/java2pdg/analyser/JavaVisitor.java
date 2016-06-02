@@ -1,8 +1,5 @@
 package java2pdg.analyser;
 
-import java.util.HashMap;
-import java.util.HashSet;
-
 import eclipsesource.json.JsonArray;
 import eclipsesource.json.JsonObject;
 import eclipsesource.json.JsonValue;
@@ -22,18 +19,6 @@ public class JavaVisitor
 	}
 
 	final DotGraph graph = Java2Pdg.getGraph();
-	final HashMap<String, HashSet<String>> use = new HashMap<>();
-	final HashMap<String, HashSet<String>> def = new HashMap<>();
-	final HashSet<String> useTemp = new HashSet<>();
-	final HashSet<String> defTemp = new HashSet<>();
-
-	final void saveDataFlow(final String nodeId)
-	{
-		use.put(nodeId, new HashSet<>(useTemp));
-		def.put(nodeId, new HashSet<>(defTemp));
-		useTemp.clear();
-		defTemp.clear();
-	}
 
 	final String parseJsonString(final JsonValue jsonValue) throws JsonValueException
 	{
@@ -65,14 +50,14 @@ public class JavaVisitor
 		throw new JsonValueException(jsonValue, "JsonObject");
 	}
 
-	final String generateNodeIdentifier()
+	int generateNodeIdentifier()
 	{
-		return Integer.toString(++nodeCounter);
+		return ++nodeCounter;
 	}
 
-	final void connectControlEdge(final String targetId, final String sourceId)
+	void connectControlEdge(final String targetId, final String sourceId)
 	{
-		graph.connectDirected(targetId, sourceId, generateEdgeIdentifier());
+		graph.connectDirected(targetId, sourceId);
 	}
 
 	final String generateEdgeIdentifier()
@@ -93,7 +78,8 @@ public class JavaVisitor
 		graph.setVertexLabel(nodeId, nodeLabel);
 	}
 
-	final int getLastNode(){
+	int getLastNode()
+	{
 		return nodeCounter;
 	}
 }

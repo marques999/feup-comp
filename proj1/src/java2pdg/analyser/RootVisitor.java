@@ -9,12 +9,9 @@ public class RootVisitor extends JavaVisitor
 	public RootVisitor(final JsonObject currentAst) throws JsonValueException
 	{
 		final JsonObject astRoot = parseJsonObject(parseJsonArray(currentAst.get("children")).get(0));
-		final JsonObject compilationUnit = parseJsonObject(astRoot);
-		final JsonArray compilationUnitPackages = parseJsonArray(compilationUnit.get("children"));
+		final JsonArray compilationUnit = parseJsonArray(parseJsonObject(astRoot).get("children"));
 
-		System.out.println("generating dependency graph for " + compilationUnit.get("name"));
-
-		for (final JsonValue jsonValue : compilationUnitPackages)
+		for (final JsonValue jsonValue : compilationUnit)
 		{
 			new PackageVisitor(parseJsonObject(jsonValue), null);
 		}

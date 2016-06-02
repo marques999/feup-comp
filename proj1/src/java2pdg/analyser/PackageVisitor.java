@@ -29,8 +29,6 @@ public class PackageVisitor extends JavaVisitor
 			}
 		}
 
-		System.out.println("  generating dependency graph for package " + packageLabel);
-
 		for (final JsonValue jsonObject : packageClasses)
 		{
 			final JsonObject currentObject = parseJsonObject(jsonObject);

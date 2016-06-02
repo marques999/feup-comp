@@ -21,8 +21,6 @@ public class ClassVisitor extends JavaVisitor
 			connectControlEdge(previousNodeId, classIdentifier);
 		}
 
-		System.out.println("    generating dependency graph for class " + parseJsonString(currentClass.get("content")));
-
 		for (final JsonValue currentProperty : classProperties)
 		{
 			exitNodes.clear();

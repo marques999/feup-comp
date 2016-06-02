@@ -377,46 +377,41 @@ public class DotGraph
 		edges.append(";\n");
 	}
 
-	public void connectUndirected(final String nodeA, final String nodeB)
-	{
-		connect(" -- ", null, nodeA, nodeB);
-	}
-
 	public void connectDirected(final String nodeA, final String nodeB)
 	{
 		connect(" -> ", null, nodeA, nodeB);
 	}
 
-	public void connectUndirected(final String nodeA, final String nodeB, final String edgeLabel)
-	{
-		connect(" -- ", edgeLabel, nodeA, nodeB);
-	}
-
 	public void connectDirected(final String nodeA, final String nodeB, final String edgeLabel)
 	{
-		connect(" -> ", null, nodeA, nodeB);
+		connect(" -> ", edgeLabel, nodeA, nodeB);
 	}
 
 	private List<String> edgeStyles = Arrays.asList(
-		"dashed", "dotted", "filled");
+		"dashed", "dotted", "filled"
+	);
 
 	private List<String> vertexShapes = Arrays.asList(
-		"octagon", "box", "circle", "diamond", "folder", "component");
+		"octagon", "box", "circle", "diamond", "folder", "component"
+	);
 
 	private List<String> dotColors = Arrays.asList(
-		"blue", "black", "red", "green", "yellow");
+		"blue", "black", "red", "green", "yellow"
+	);
 
 	/**
 	 * formatos de representação suportados pela aplicação DOT
 	 */
 	private final List<String> representationTypes = Arrays.asList(
-		"dot", "neato", "fdp", "sfdp", "twopi", "circo");
+		"dot", "neato", "fdp", "sfdp", "twopi", "circo"
+	);
 
 	/**
 	 * formatos de saída suportados pela aplicação DOT
 	 */
 	private final List<String> outputTypes = Arrays.asList(
-		"gif", "fig", "pdf", "png", "ps", "svg");
+		"gif", "fig", "pdf", "png", "ps", "svg"
+	);
 
 	/**
 	 * Adds a newline to the graph's source.
@@ -460,13 +455,6 @@ public class DotGraph
 		}
 	}
 
-	/**
-	 * It will call the external dot program, and return the image in binary format.
-	 * @param outputFile Source of the graph (in dot language).
-	 * @param outputType  type of the output image to be produced, e.g.: gif, dot, fig, pdf, ps, svg, png.
-	 * @param representationType type of how you want to represent the graph:
-	 * @return The image of the graph in .gif format.
-	 */
 	private void generateGraph(final File outputFile, final String outputType, final String representationType)
 	{
 		try
@@ -545,29 +533,17 @@ public class DotGraph
 		return generateDotFile(new File(outputFile));
 	}
 
-	/**
-	 * Returns a string that is used to start a graph.
-	 * @return A string to open a graph.
-	 */
 	private final void startGraph(final String graphName)
 	{
 		clearGraph();
 		graph.append("digraph " + graphName + " {\n");
 	}
 
-	/**
-	 * Returns a string that is used to end a graph.
-	 * @return A string to close a graph.
-	 */
 	public final void finalizeGraph()
 	{
 		graph.append("}");
 	}
 
-	/**
-	 * Takes the cluster or subgraph id as input parameter and returns a string
-	 * that is used to start a subgraph.
-	 */
 	public final void startSubgraph(int clusterid)
 	{
 		if (!subgraphClosed)
@@ -579,9 +555,6 @@ public class DotGraph
 		subgraphClosed = false;
 	}
 
-	/**
-	 * Returns a string that is used to end a graph.
-	 */
 	public final void finalizeSubgraph()
 	{
 		if (!subgraphClosed)
@@ -591,10 +564,6 @@ public class DotGraph
 		}
 	}
 
-	/**
-	 * Read a DOT graph from a text file
-	 * @param inputFile input text file containing the DOT graph source.
-	 */
 	public void readSource(final String inputFile)
 	{
 		String currentLine;

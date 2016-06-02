@@ -1,11 +1,15 @@
 package java2pdg.analyser;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 import eclipsesource.json.JsonArray;
 import eclipsesource.json.JsonObject;
 import eclipsesource.json.JsonValue;
+
+import java2pdg.SimplePair;
 
 public class MethodVisitor extends JavaVisitor
 {
@@ -18,9 +22,11 @@ public class MethodVisitor extends JavaVisitor
 	
 	private boolean returnMissing;
 	
-	public MethodVisitor(final JsonObject currentObject, final JsonArray objectContent, ArrayList<String> exitNodes) throws JsonValueException
+	public MethodVisitor(final JsonObject currentObject, ArrayList<String> exitNodes) throws JsonValueException
 	{
 		int blockPosition = 1;
+		
+		final JsonArray objectContent = parseJsonArray(currentObject.get("children"));
 		
 		for (int i = blockPosition; i < objectContent.size(); i++)
 		{
@@ -39,7 +45,9 @@ public class MethodVisitor extends JavaVisitor
 		
 		String methodName = parseJsonString(currentObject.get("content"));
 		
-		final String nodeIdentifier = "\"method_" + methodName + "\"";
+		objectName = methodName;
+		
+		final String nodeIdentifier = generateVertexName(0);
 		
 		pushMethod(nodeIdentifier, "function: " + methodName);
 		returnMissing = false;
@@ -51,8 +59,8 @@ public class MethodVisitor extends JavaVisitor
 
 		System.out.println("      generating dependency graph for method " + parseJsonString(currentObject.get("content")) + "()");
 		exitNodes.clear();
-		exitNodes.add(nodeIdentifier);
-		objectName = methodName;
+		exitNodes.add("0");
+		
 		System.out.println("MethodVisitor:" + exitNodes);
 		argumentList = new ArrayList<String>();
 		
@@ -63,6 +71,24 @@ public class MethodVisitor extends JavaVisitor
 		
 		System.out.println("USE: " + use);
 		System.out.println("DEF: " + def);
+		generateDataFlow();
+		System.out.println("SUCCESSORS: " + mSuccessors);
+	}
+	
+	void connectDataEdge(int targetId, int sourceId)
+	{
+		if (targetId == sourceId)
+		{
+			graph.setEdgeColor("green");
+			graph.connectDirected(generateVertexName(targetId), generateVertexName(sourceId), "<def>");
+		}
+		else
+		{
+			graph.setEdgeColor("red");
+			graph.connectDirected(generateVertexName(targetId), generateVertexName(sourceId), "<use>");
+		}
+		
+		graph.setEdgeColor("blue");
 	}
 
 	private void visitParameters(final String nodeIdentifier)
@@ -74,6 +100,11 @@ public class MethodVisitor extends JavaVisitor
 			pushVertex(parameterNode, parameterLabel);
 			connectControlEdge(parameterNode, nodeIdentifier);
 		}
+	}
+	
+	final String generateVertexName(int nodeId)
+	{
+		return "\"" + objectName + "_" + nodeId  + "\"";
 	}
 	
 	final String generateVertexName(final String nodeId)
@@ -94,7 +125,8 @@ public class MethodVisitor extends JavaVisitor
 			final JsonObject caseNode = parseJsonObject(nodeChildren.get(0));
 			final String caseNodeType = parseJsonString(caseNode.get("name"));
 			
-			String childStartingNode = generateNodeIdentifier() + ": Case " + processGeneric((JsonObject) nodeChildren.get(0));
+			int childStartingId = generateNodeIdentifier();
+			String childStartingNode = childStartingId + ": Case " + processGeneric((JsonObject) nodeChildren.get(0));
 			
 			if (caseNodeType.equals("Literal"))
 			{
@@ -110,12 +142,13 @@ public class MethodVisitor extends JavaVisitor
 			
 			for (final String previousNode : startNodes)
 			{
-				connectControlEdge(childStartingNode, previousNode);
+				connectControlEdge(childStartingId, previousNode);
+				connectSuccessors(childStartingId, previousNode);
 			}
 			
 			i = 1;	
-			exitNodes.add(childStartingNode);
-			saveDataFlow(childStartingNode);
+			exitNodes.add(Integer.toString(childStartingId));
+			saveDataFlow(childStartingId);
 		}
 		else if (startNodes != null)
 		{
@@ -163,36 +196,89 @@ public class MethodVisitor extends JavaVisitor
 		return exitNodes;
 	}
 	
+	private final HashMap<Integer, HashSet<Integer>> mSuccessors = new HashMap<>();
+	
+	void connectSuccessors(final Integer targetVertex, final Integer sourceVertex)
+	{
+		if (mSuccessors.containsKey(targetVertex))
+		{
+			mSuccessors.get(targetVertex).add(sourceVertex);
+		}
+		else
+		{
+			mSuccessors.put(targetVertex, new HashSet<>());
+			mSuccessors.get(targetVertex).add(sourceVertex);
+		}
+	}
+	
+	void connectSuccessors(int targetVertex, final String sourceVertex)
+	{
+		try
+		{
+			connectSuccessors(targetVertex, Integer.parseInt(sourceVertex));
+		}
+		catch (NumberFormatException ex)
+		{
+		}
+	}
+
+	void connectSuccessors(final String targetVertex, int sourceVertex)
+	{
+		try
+		{
+			connectSuccessors(Integer.parseInt(targetVertex), sourceVertex);
+		}
+		catch (NumberFormatException ex)
+		{
+		}
+	}
+	
 	private ArrayList<String> visitBreak(final ArrayList<String> exitNodes, final JsonObject currentNode) throws JsonValueException
 	{
-		final String breakNodeId = generateNodeIdentifier();
+		int breakNodeId = generateNodeIdentifier();
 		final String breakString = breakNodeId + ": " + parseJsonString(currentNode.get("name")).toLowerCase();
 
 		pushVertex(breakNodeId, breakString);
-		breakNodes.add(breakString);
+		breakNodes.add(Integer.toString(breakNodeId));
 
 		for (final String previousNodeId : exitNodes)
 		{
 			connectControlEdge(previousNodeId, breakNodeId);
+			connectSuccessors(previousNodeId, breakNodeId);
 		}
 
 		exitNodes.clear();
 		
 		return exitNodes;
 	}
+	
+	void connectControlEdge(int targetId, final String sourceId)
+	{
+		connectControlEdge(generateVertexName(targetId), generateVertexName(sourceId));
+	}
+	
+	void connectControlEdge(final String targetId, int sourceId)
+	{
+		connectControlEdge(generateVertexName(targetId), generateVertexName(sourceId));
+	}
+	
+	void connectControlEdge(int targetId, int sourceId)
+	{
+		connectControlEdge(generateVertexName(targetId), generateVertexName(sourceId));
+	}
 
 	private ArrayList<String> visitContinue(final ArrayList<String> exitNodes, final JsonObject currentNode) throws JsonValueException
 	{
-		final String continueNodeId = generateNodeIdentifier();
-		final String continueNode = generateVertexName(continueNodeId);
+		int continueNodeId = generateNodeIdentifier();
 		final String continueString = continueNodeId + ": " + parseJsonString(currentNode.get("name")).toLowerCase();
 
 		pushVertex(continueNodeId, continueString);
-		continueNodes.add(continueNode);
+		continueNodes.add(Integer.toString(continueNodeId));
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, continueNode);
+			connectControlEdge(previousNodeId, continueNodeId);
+			connectSuccessors(previousNodeId, continueNodeId);
 		}
 
 		exitNodes.clear();
@@ -202,16 +288,16 @@ public class MethodVisitor extends JavaVisitor
 	
 	private void defaultReturn(final ArrayList<String> exitNodes)
 	{
-		final String returnNodeId = generateNodeIdentifier();
-		final String returnVertex = generateVertexName(returnNodeId);
+		int returnNodeId = generateNodeIdentifier();
 		final String returnLabel = returnNodeId + ": return";
 
-		pushVertex(returnVertex, returnLabel);
-		returnNodes.add(returnVertex);
+		pushVertex(returnNodeId, returnLabel);
+		returnNodes.add(Integer.toString(returnNodeId));
 
 		for (final String previousNode : exitNodes)
 		{
-			connectControlEdge(previousNode, returnVertex);
+			connectControlEdge(previousNode, returnNodeId);
+			connectSuccessors(previousNode, returnNodeId);
 		}
 
 		exitNodes.clear();
@@ -221,18 +307,20 @@ public class MethodVisitor extends JavaVisitor
 	{
 		final JsonArray nodeChildren = parseJsonArray(currentNode.get("children"));
 		final String returnNode = processGeneric(nodeChildren.get(0));
-		final String returnNodeId = generateNodeIdentifier();
-		final String returnVertex = generateVertexName(returnNodeId);
+		int returnNodeId = generateNodeIdentifier();
 		final String returnLabel = returnNodeId + ": return " + returnNode;
 
-		pushVertex(returnVertex, returnLabel);
-		returnNodes.add(returnVertex);
+		pushVertex(returnNodeId, returnLabel);
+		returnNodes.add(Integer.toString(returnNodeId));
 
 		for (final String previousNode : exitNodes)
 		{
-			connectControlEdge(previousNode, returnVertex);
+			connectControlEdge(previousNode, returnNodeId);
+			connectSuccessors(previousNode, returnNodeId);
 		}
 
+		exitNodes.addAll(returnNodes);
+		saveDataFlow(returnNodeId);
 		exitNodes.clear();
 		
 		return exitNodes;
@@ -247,16 +335,16 @@ public class MethodVisitor extends JavaVisitor
 		//+------------------------+//
 		
 		final String conditionNode = processGeneric(children.get(0));
-		final String conditionNodeId = generateNodeIdentifier();
-		final String conditionVertex = generateVertexName(conditionNodeId);
+		int conditionNodeId = generateNodeIdentifier();
 		final String conditionLabel = conditionNodeId + ": " + conditionNode;
 
-		pushVertex(conditionVertex, conditionLabel);
+		pushVertex(conditionNodeId, conditionLabel);
 		saveDataFlow(conditionNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, conditionVertex);
+			connectControlEdge(previousNodeId, conditionNodeId);
+			connectSuccessors(previousNodeId, conditionNodeId);
 		}
 
 		exitNodes.clear();
@@ -290,17 +378,17 @@ public class MethodVisitor extends JavaVisitor
 		//|PROCESS CONDITION NODE|//
 		//+----------------------+//
 		
-		final String conditionNode = processGeneric( parseJsonObject(children.get(0)));
-		final String conditionNodeId = generateNodeIdentifier();
-		final String conditionVertex = generateVertexName(conditionNodeId);
+		int conditionNodeId = generateNodeIdentifier();
+		final String conditionNode = processGeneric(parseJsonObject(children.get(0)));
 		final String conditionLabel = conditionNodeId + ": " + conditionNode;
 
-		pushVertex(conditionVertex, conditionLabel);
+		pushVertex(conditionNodeId, conditionLabel);
 		saveDataFlow(conditionNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, conditionVertex);
+			connectControlEdge(previousNodeId, conditionNodeId);
+			connectSuccessors(previousNodeId, conditionNodeId);
 		}
 
 		exitNodes.clear();
@@ -312,7 +400,7 @@ public class MethodVisitor extends JavaVisitor
 		if (children.size() > 1)
 		{
 			argumentList.clear();
-			argumentList.add(conditionVertex);
+			argumentList.add(Integer.toString(conditionNodeId));
 			exitNodes.addAll(exploreNode(children.get(1), argumentList));
 		}
 
@@ -323,7 +411,7 @@ public class MethodVisitor extends JavaVisitor
 		if (children.size() > 2)
 		{
 			argumentList.clear();
-			argumentList.add(conditionVertex);
+			argumentList.add(Integer.toString(conditionNodeId));
 			exitNodes.addAll(exploreNode(children.get(2), argumentList));
 		}
 	}
@@ -337,29 +425,28 @@ public class MethodVisitor extends JavaVisitor
 		//+------------------------+//
 		
 		final String conditionNode = processGeneric(children.get(0));
-		final String conditionNodeId = generateNodeIdentifier();
-		final String conditionVertex = generateVertexName(conditionNodeId);
+		int conditionNodeId = generateNodeIdentifier();
 		final String conditionLabel = conditionNodeId + ": " + conditionNode;
 		
 		//+-------------------------+//
 		//| PROCESS "DO" START NODE |//
 		//+-------------------------+//
 		
-		final String startNodeId = generateNodeIdentifier();
-		final String startNodeVertex = generateVertexName(startNodeId);
+		int startNodeId = generateNodeIdentifier();
 		final String startNodeLabel = startNodeId + ": do";
 		
-		pushVertex(conditionVertex, conditionLabel);
-		pushVertex(startNodeVertex, startNodeLabel);
+		pushVertex(conditionNodeId, conditionLabel);
+		pushVertex(startNodeId, startNodeLabel);
 		saveDataFlow(startNodeId);
 
 		for (final String previousNode : exitNodes)
 		{
-			connectControlEdge(previousNode, startNodeVertex);
+			connectControlEdge(previousNode, startNodeId);
+			connectSuccessors(previousNode, startNodeId);
 		}
 
 		argumentList.clear();
-		argumentList.add(startNodeVertex);
+		argumentList.add(Integer.toString(startNodeId));
 
 		//+--------------------+//
 		//| PROCESS CODE BLOCK |//
@@ -369,12 +456,14 @@ public class MethodVisitor extends JavaVisitor
 
 		for (final String previousNode : exitNodes)
 		{
-			connectControlEdge(previousNode, conditionVertex);
+			connectControlEdge(previousNode, conditionNodeId);
+			connectSuccessors(previousNode, conditionNodeId);
 		}
 
 		exitNodes.clear();
-		connectControlEdge(startNodeVertex, conditionVertex);
-
+		connectControlEdge(startNodeId, conditionNodeId);
+		connectSuccessors(startNodeId, conditionNodeId);
+		
 		// connect breaks and continues
 		System.out.println(breakNodes);
 		exitNodes.addAll(breakNodes);
@@ -382,11 +471,12 @@ public class MethodVisitor extends JavaVisitor
 		
 		for (final String previousNode : continueNodes)
 		{
-			connectControlEdge(startNodeVertex, previousNode);
+			connectControlEdge(startNodeId, previousNode);
+			connectSuccessors(startNodeId, previousNode);
 		}
 		
 		continueNodes.clear();
-		exitNodes.add(conditionVertex);
+		exitNodes.add(Integer.toString(conditionNodeId));
 	}
 
 	private void visitWhile(ArrayList<String> exitNodes, final ArrayList<String> argumentList, final JsonObject currentNode) throws JsonValueException
@@ -398,20 +488,20 @@ public class MethodVisitor extends JavaVisitor
 		//+----------------------+//
 		
 		final String conditionNode = processGeneric(children.get(0));
-		final String conditionNodeId = generateNodeIdentifier();
-		final String conditionVertex = generateVertexName(conditionNodeId);
+		int conditionNodeId = generateNodeIdentifier();
 		final String conditionLabel = conditionNodeId + ": if (" + conditionNode + ")";
 
-		pushDiamond(conditionVertex, conditionLabel);
+		pushDiamond(conditionNodeId, conditionLabel);
 		saveDataFlow(conditionNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, conditionVertex);
+			connectControlEdge(previousNodeId, conditionNodeId);
+			connectSuccessors(previousNodeId, conditionNodeId);
 		}
 
 		argumentList.clear();
-		argumentList.add(conditionVertex);
+		argumentList.add(Integer.toString(conditionNodeId));
 		
 		//+----------------------------+//
 		//| PROCESS INSTRUCTIONS BLOCK |//
@@ -421,7 +511,8 @@ public class MethodVisitor extends JavaVisitor
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, conditionVertex);
+			connectControlEdge(previousNodeId, conditionNodeId);
+			connectSuccessors(previousNodeId, conditionNodeId);
 		}
 
 		exitNodes.clear();
@@ -431,18 +522,33 @@ public class MethodVisitor extends JavaVisitor
 		
 		for (String previousNodeId : continueNodes)
 		{
-			connectControlEdge(conditionVertex, previousNodeId);
+			connectControlEdge(conditionNodeId, previousNodeId);
+			connectSuccessors(conditionNodeId, previousNodeId);
 		}
 		
 		continueNodes.clear();
-		exitNodes.add(conditionVertex);
+		exitNodes.add(Integer.toString(conditionNodeId));
 	}
 	
-	void pushDiamond(final String nodeId, final String nodeLabel)
+	void pushDiamond(int nodeId, final String nodeLabel)
 	{
-		graph.pushVertex(nodeId);
-		graph.setVertexLabel(nodeId, nodeLabel);
-		graph.setVertexShape(nodeId, "diamond");
+		String vertexName = generateVertexName(nodeId);
+		graph.pushVertex(vertexName);
+		graph.setVertexLabel(vertexName, nodeLabel);
+		graph.setVertexShape(vertexName, "diamond");
+	}
+	
+	final HashMap<Integer, HashSet<String>> use = new HashMap<>();
+	final HashMap<Integer, HashSet<String>> def = new HashMap<>();
+	final HashSet<String> useTemp = new HashSet<>();
+	final HashSet<String> defTemp = new HashSet<>();
+
+	final void saveDataFlow(final Integer nodeId)
+	{
+		use.put(nodeId, new HashSet<>(useTemp));
+		def.put(nodeId, new HashSet<>(defTemp));
+		useTemp.clear();
+		defTemp.clear();
 	}
 
 	private void visitFor(ArrayList<String> exitNodes, final ArrayList<String> argumentList, final JsonObject currentNode) throws JsonValueException
@@ -452,18 +558,18 @@ public class MethodVisitor extends JavaVisitor
 		//+-----------------------+//
 		//|PROCESS ASSIGNMENT NODE|//
 		//+-----------------------+//
-		
+
+		int assignmentNodeId = generateNodeIdentifier();
 		final String assignmentNode = processGeneric(children.get(0));
-		final String assignmentNodeId = generateNodeIdentifier();
-		final String assignmentNodeVertex = generateVertexName(assignmentNodeId);
 		final String assignmentLabel = assignmentNodeId + ": " + assignmentNode;
 
-		pushVertex(assignmentNodeVertex, assignmentLabel);
+		pushVertex(assignmentNodeId, assignmentLabel);
 		saveDataFlow(assignmentNodeId);
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, assignmentNodeVertex);
+			connectControlEdge(previousNodeId, assignmentNodeId);
+			connectSuccessors(previousNodeId, assignmentNodeId);
 		}
 
 		exitNodes.clear();
@@ -471,74 +577,151 @@ public class MethodVisitor extends JavaVisitor
 		//+----------------------+//
 		//|PROCESS CONDITION NODE|//
 		//+----------------------+//
-		
+
+		int conditionNodeId = generateNodeIdentifier();
 		final String conditionNode = processGeneric(children.get(1));
-		final String conditionNodeId = generateNodeIdentifier();
-		final String conditionVertex = generateVertexName(conditionNodeId);
 		final String conditionLabel = conditionNodeId + ": if (" + conditionNode + ")";
 
-		pushDiamond(conditionVertex, conditionLabel);
-		connectControlEdge(assignmentNodeVertex, conditionVertex);
-		
+		pushDiamond(conditionNodeId, conditionLabel);
+		connectControlEdge(assignmentNodeId, conditionNodeId);
+		connectSuccessors(assignmentNodeId, conditionNodeId);
+
 		//+----------------------------+//
 		//| PROCESS INSTRUCTIONS BLOCK |//
 		//+----------------------------+//
-		
+
 		argumentList.clear();
-		argumentList.add(conditionVertex);
-		exitNodes.addAll(exploreNode(children.get(3), argumentList));
+		argumentList.add(Integer.toString(conditionNodeId));
 		saveDataFlow(conditionNodeId);
+		exitNodes.addAll(exploreNode(children.get(3), argumentList));
 
 		//+----------------------+//
 		//|PROCESS STATEMENT NODE|//
 		//+----------------------+//
-		
+
 		final String statementNode = processGeneric(children.get(2));
-		final String statementNodeId = generateNodeIdentifier();
-		final String statementVertex = generateVertexName(statementNodeId);
+		int statementNodeId = generateNodeIdentifier();
 		final String statementLabel = statementNodeId + ": " + statementNode;
 
-		pushVertex(statementVertex, statementLabel);
+		pushVertex(statementNodeId, statementLabel);
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, statementVertex);
+			connectControlEdge(previousNodeId, statementNodeId);
+			connectSuccessors(previousNodeId, statementNodeId);
 		}
-		
-		connectControlEdge(statementVertex, conditionVertex);
-		exitNodes.clear();	
+
+		connectControlEdge(statementNodeId, conditionNodeId);
+		connectSuccessors(statementNodeId, conditionNodeId);
+		exitNodes.clear();
 		exitNodes.addAll(breakNodes);
 		breakNodes.clear();
-		
+
 		for (final String previousNodeId : continueNodes)
 		{
-			connectControlEdge(previousNodeId, conditionVertex);
+			connectControlEdge(previousNodeId, conditionNodeId);
+			connectSuccessors(previousNodeId, conditionNodeId);
 		}
 		
 		continueNodes.clear();
-		exitNodes.add(conditionVertex);
+		exitNodes.add(Integer.toString(conditionNodeId));
 		saveDataFlow(statementNodeId);
 	}
 
+	void pushVertex(int nodeId, final String nodeLabel)
+	{
+		String vertexName = generateVertexName(nodeId);
+		graph.pushVertex(vertexName);
+		graph.setVertexLabel(vertexName, nodeLabel);
+		graph.setVertexShape(vertexName, "box");
+	}
+	
 	private void visitDefault(final ArrayList<String> exitNodes, final JsonObject currentNode) throws JsonValueException
 	{
-		final String defaultNodeId = generateNodeIdentifier();
-		final String defaultVertex = generateVertexName(defaultNodeId);
+		int defaultNodeId = generateNodeIdentifier();
 		final String defaultLabel = defaultNodeId + ": " + processGeneric(currentNode);
 
-		System.out.println(defaultLabel);
-		pushVertex(defaultVertex, defaultLabel);
+		pushVertex(defaultNodeId, defaultLabel);
 		saveDataFlow(defaultNodeId);
-
 
 		for (final String previousNodeId : exitNodes)
 		{
-			connectControlEdge(previousNodeId, defaultVertex);
+			connectControlEdge(previousNodeId, defaultNodeId);
+			connectSuccessors(previousNodeId, defaultNodeId);
 		}
 
 		exitNodes.clear();
-		exitNodes.add(defaultVertex);
+		exitNodes.add(Integer.toString(defaultNodeId));
 	}
+	
+    private void generateDataFlow()
+    {
+        final LinkedList<Integer> queue = new LinkedList<>();
+        final HashSet<SimplePair> edgeConnections = new HashSet<>();
+        final HashMap<String, Integer> currentLastDef = new HashMap<>();
+        final HashMap<Integer, Statement> statementDef = new HashMap<>();
+
+        queue.addAll(mSuccessors.keySet());
+
+        while (!queue.isEmpty())
+        {
+            final Integer currentNodeId = queue.poll();
+            final HashSet<String> defSet = def.get(currentNodeId);
+            final HashSet<String> useSet = use.get(currentNodeId);
+
+            Statement previousDefs = statementDef.get(currentNodeId);
+
+            if (previousDefs == null)
+            {
+                statementDef.put(currentNodeId, new Statement());
+                previousDefs = statementDef.get(currentNodeId);
+            }
+
+            boolean statementChanged = false;
+
+            if (useSet == null)
+            {
+            	continue;
+            }
+            
+            for (final String currentVariable : useSet)
+            {
+                final Integer lastDefStatement = currentLastDef.get(currentVariable);
+
+                if (lastDefStatement != null)
+                {
+                    previousDefs.updateVariable(currentVariable, lastDefStatement);
+
+                    if (previousDefs.hasChanged())
+                    {
+                        statementChanged = true;
+                    }
+
+                    edgeConnections.add(new SimplePair(lastDefStatement, currentNodeId));
+                }
+            }
+
+            for (final String currentVariable : defSet)
+            {
+                currentLastDef.put(currentVariable, currentNodeId);
+            }
+
+            if (statementChanged)
+            {
+            	final HashSet<Integer> mySucessors = mSuccessors.get(currentNodeId);
+                
+            	if (mySucessors != null)
+        		{
+            		queue.addAll(mySucessors);
+        		}
+            }
+        }
+
+        for (final SimplePair connection : edgeConnections)
+        {
+            connectDataEdge(connection.getFirst(), connection.getSecond());
+        }
+    }
 
 	private String processGeneric(final JsonValue jsonValue) throws JsonValueException
 	{

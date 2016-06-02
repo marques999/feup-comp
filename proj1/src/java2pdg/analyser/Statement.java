@@ -19,7 +19,7 @@ public class Statement
         return statementChanged;
     }
 
-    public void updateVariable(final String variableName, int lastDef)
+    public void updateVariable(final String variableName, final Integer lastDef)
     {
         if (lastDefs.containsKey(variableName))
         {
