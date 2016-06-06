@@ -17,6 +17,7 @@ public class MethodVisitor extends JavaVisitor
 	private final ArrayList<String> parameterNodes = new ArrayList<String>();
 	private final ArrayList<String> breakNodes = new ArrayList<String>();
 	private final ArrayList<String> continueNodes = new ArrayList<String>();
+	private final ArrayList<String> throwNodes = new ArrayList<String>();
 	private final ArrayList<String> returnNodes = new ArrayList<String>();
 	private final String objectName;
 	
@@ -180,6 +181,8 @@ public class MethodVisitor extends JavaVisitor
 			case "Switch":
 				visitSwitch(exitNodes, argumentList, newNode);
 				break;
+			case "Throw":
+				return visitThrow(exitNodes, newNode);
 			case "Continue":
 				return visitContinue(exitNodes, newNode);
 			case "Break":
@@ -281,6 +284,30 @@ public class MethodVisitor extends JavaVisitor
 			connectSuccessors(previousNodeId, continueNodeId);
 		}
 
+		exitNodes.clear();
+		
+		return exitNodes;
+	}
+	
+	private ArrayList<String> visitThrow(final ArrayList<String> exitNodes, final JsonObject currentNode) throws JsonValueException
+	{
+		final JsonArray nodeChildren = parseJsonArray(currentNode.get("children"));
+		
+		int throwNodeId = generateNodeIdentifier();
+		final String throwNode = processGeneric(nodeChildren.get(0));
+		final String throwString = throwNodeId + ": " + parseJsonString(currentNode.get("name")).toLowerCase();
+
+		pushVertex(throwNodeId, throwString);
+		throwNodes.add(Integer.toString(throwNodeId));
+
+		for (final String previousNodeId : exitNodes)
+		{
+			connectControlEdge(previousNodeId, throwNodeId);
+			connectSuccessors(previousNodeId, throwNodeId);
+		}
+
+		exitNodes.addAll(throwNodes);
+		saveDataFlow(throwNodeId);
 		exitNodes.clear();
 		
 		return exitNodes;
@@ -755,6 +782,8 @@ public class MethodVisitor extends JavaVisitor
 		case "Break":
 			return type;
 		case "Continue":
+			return type;
+		case "Throw":
 			return type;
 		case "Return":
 			return type;
