@@ -19,14 +19,18 @@ public class Java2Pdg
 {
 	public static void main(String args[])
 	{
-		graph = new DotGraph("ABCD");
+		if(args.length != 2){
+			System.err.println("Wrong Arguments. It should be <ast_file> <image_name>.");
+			return;
+		}
+		graph = new DotGraph(args[1]);
 		graph.setEdgeColor("blue");
 		graph.setEdgeStyle("dotted");
 		graph.setDpi(15);
 
 		try
 		{
-			new RootVisitor(parseFile("test/FirstTest.json"));
+			new RootVisitor(parseFile("test/" + args[0]));
 		}
 		catch (final IOException | JsonValueException ex)
 		{
@@ -35,7 +39,7 @@ public class Java2Pdg
 		}
 
 		graph.generateDotFile("myGraph.dot");
-		graph.outputGraph("png", "neato");
+		graph.outputGraph("png", "dot");
 	}
 	
 	private static DotGraph graph;

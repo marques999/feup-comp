@@ -1,301 +1,301 @@
 {
    "name": "Root",
    "children": [
-   {
-      "name": "RootPackage",
-      "content": "",
-      "children": [
       {
-         "name": "Package",
-         "content": "unnamed package",
+         "name": "RootPackage",
+         "content": "",
          "children": [
-         {
-            "name": "Class",
-            "content": "FirstTest",
-            "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:1)",
-            "children": [
             {
-               "name": "Constructor",
-               "content": "FirstTest()",
-               "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:1)",
+               "name": "Package",
+               "content": "unnamed package",
                "children": [
-               {
-                  "name": "Block",
-                  "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:1)",
-                  "children": [
                   {
-                     "name": "Invocation",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:1)",
+                     "name": "Class",
+                     "content": "FirstTest",
+                     "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:1)",
                      "children": [
-                     {
-                        "name": "TypeReference",
-                        "content": "Object",
-                        "children": [
                         {
-                           "name": "PackageReference",
-                           "content": "java.lang",
-                           "children": []
-                        }]
-                     },
-                     {
-                        "name": "ExecutableReference",
-                        "content": "<init>",
-                        "children": [
-                        {
-                           "name": "TypeReference",
-                           "content": "Object",
+                           "name": "Constructor",
+                           "content": "FirstTest()",
+                           "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:1)",
                            "children": [
-                           {
-                              "name": "PackageReference",
-                              "content": "java.lang",
-                              "children": []
-                           }]
+                              {
+                                 "name": "Block",
+                                 "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:1)",
+                                 "children": [
+                                    {
+                                       "name": "Invocation",
+                                       "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:1)",
+                                       "children": [
+                                          {
+                                             "name": "TypeReference",
+                                             "content": "Object",
+                                             "children": [
+                                                {
+                                                   "name": "PackageReference",
+                                                   "content": "java.lang",
+                                                   "children": []
+                                                }]
+                                          },
+                                          {
+                                             "name": "ExecutableReference",
+                                             "content": "<init>",
+                                             "children": [
+                                                {
+                                                   "name": "TypeReference",
+                                                   "content": "Object",
+                                                   "children": [
+                                                      {
+                                                         "name": "PackageReference",
+                                                         "content": "java.lang",
+                                                         "children": []
+                                                      }]
+                                                },
+                                                {
+                                                   "name": "TypeReference",
+                                                   "content": "Object",
+                                                   "children": [
+                                                      {
+                                                         "name": "PackageReference",
+                                                         "content": "java.lang",
+                                                         "children": []
+                                                      }]
+                                                }]
+                                          }]
+                                    }]
+                              }]
                         },
                         {
-                           "name": "TypeReference",
-                           "content": "Object",
+                           "name": "Method",
+                           "content": "test",
+                           "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:2)",
                            "children": [
-                           {
-                              "name": "PackageReference",
-                              "content": "java.lang",
-                              "children": []
-                           }]
-                        }]
-                     }]
-                  }]
-               }]
-            },
-            {
-               "name": "Method",
-               "content": "test",
-               "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:2)",
-               "children": [
-               {
-                  "name": "TypeReference",
-                  "content": "int",
-                  "children": []
-               },
-               {
-                  "name": "Parameter",
-                  "content": "x",
-                  "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:2)",
-                  "children": [
-                  {
-                     "name": "TypeReference",
-                     "content": "int",
-                     "children": []
-                  }]
-               },
-               {
-                  "name": "Parameter",
-                  "content": "y",
-                  "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:2)",
-                  "children": [
-                  {
-                     "name": "TypeReference",
-                     "content": "int",
-                     "children": []
-                  }]
-               },
-               {
-                  "name": "Block",
-                  "children": [
-                  {
-                     "name": "LocalVariable",
-                     "content": "a",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:3)",
-                     "children": [
-                     {
-                        "name": "TypeReference",
-                        "content": "int",
-                        "children": []
-                     },
-                     {
-                        "name": "BinaryOperator",
-                        "content": "+",
-                        "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:3)",
-                        "children": [
-                        {
-                           "name": "TypeReference",
-                           "content": "int",
-                           "children": []
-                        },
-                        {
-                           "name": "VariableRead",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:3)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           },
-                           {
-                              "name": "ParameterReference",
-                              "content": "x",
-                              "children": [
                               {
                                  "name": "TypeReference",
                                  "content": "int",
                                  "children": []
-                              }]
-                           }]
-                        },
-                        {
-                           "name": "Literal",
-                           "content": "3",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:3)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           }]
-                        }]
-                     }]
-                  },
-                  {
-                     "name": "LocalVariable",
-                     "content": "b",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:4)",
-                     "children": [
-                     {
-                        "name": "TypeReference",
-                        "content": "int",
-                        "children": []
-                     },
-                     {
-                        "name": "BinaryOperator",
-                        "content": "-",
-                        "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:4)",
-                        "children": [
-                        {
-                           "name": "TypeReference",
-                           "content": "int",
-                           "children": []
-                        },
-                        {
-                           "name": "VariableRead",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:4)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           },
-                           {
-                              "name": "ParameterReference",
-                              "content": "y",
-                              "children": [
+                              },
                               {
-                                 "name": "TypeReference",
-                                 "content": "int",
-                                 "children": []
-                              }]
-                           }]
-                        },
-                        {
-                           "name": "Literal",
-                           "content": "2",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:4)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           }]
-                        }]
-                     }]
-                  },
-                  {
-                     "name": "LocalVariable",
-                     "content": "c",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:5)",
-                     "children": [
-                     {
-                        "name": "TypeReference",
-                        "content": "int",
-                        "children": []
-                     },
-                     {
-                        "name": "BinaryOperator",
-                        "content": "*",
-                        "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:5)",
-                        "children": [
-                        {
-                           "name": "TypeReference",
-                           "content": "int",
-                           "children": []
-                        },
-                        {
-                           "name": "VariableRead",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:5)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           },
-                           {
-                              "name": "LocalVariableReference",
-                              "content": "a",
-                              "children": [
+                                 "name": "Parameter",
+                                 "content": "x",
+                                 "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:2)",
+                                 "children": [
+                                    {
+                                       "name": "TypeReference",
+                                       "content": "int",
+                                       "children": []
+                                    }]
+                              },
                               {
-                                 "name": "TypeReference",
-                                 "content": "int",
-                                 "children": []
-                              }]
-                           }]
-                        },
-                        {
-                           "name": "VariableRead",
-                           "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:5)",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           },
-                           {
-                              "name": "LocalVariableReference",
-                              "content": "b",
-                              "children": [
+                                 "name": "Parameter",
+                                 "content": "y",
+                                 "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:2)",
+                                 "children": [
+                                    {
+                                       "name": "TypeReference",
+                                       "content": "int",
+                                       "children": []
+                                    }]
+                              },
                               {
-                                 "name": "TypeReference",
-                                 "content": "int",
-                                 "children": []
+                                 "name": "Block",
+                                 "children": [
+                                    {
+                                       "name": "LocalVariable",
+                                       "content": "a",
+                                       "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:3)",
+                                       "children": [
+                                          {
+                                             "name": "TypeReference",
+                                             "content": "int",
+                                             "children": []
+                                          },
+                                          {
+                                             "name": "BinaryOperator",
+                                             "content": "+",
+                                             "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:3)",
+                                             "children": [
+                                                {
+                                                   "name": "TypeReference",
+                                                   "content": "int",
+                                                   "children": []
+                                                },
+                                                {
+                                                   "name": "VariableRead",
+                                                   "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:3)",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      },
+                                                      {
+                                                         "name": "ParameterReference",
+                                                         "content": "x",
+                                                         "children": [
+                                                            {
+                                                               "name": "TypeReference",
+                                                               "content": "int",
+                                                               "children": []
+                                                            }]
+                                                      }]
+                                                },
+                                                {
+                                                   "name": "Literal",
+                                                   "content": "3",
+                                                   "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:3)",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      }]
+                                                }]
+                                          }]
+                                    },
+                                    {
+                                       "name": "LocalVariable",
+                                       "content": "b",
+                                       "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:4)",
+                                       "children": [
+                                          {
+                                             "name": "TypeReference",
+                                             "content": "int",
+                                             "children": []
+                                          },
+                                          {
+                                             "name": "BinaryOperator",
+                                             "content": "-",
+                                             "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:4)",
+                                             "children": [
+                                                {
+                                                   "name": "TypeReference",
+                                                   "content": "int",
+                                                   "children": []
+                                                },
+                                                {
+                                                   "name": "VariableRead",
+                                                   "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:4)",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      },
+                                                      {
+                                                         "name": "ParameterReference",
+                                                         "content": "y",
+                                                         "children": [
+                                                            {
+                                                               "name": "TypeReference",
+                                                               "content": "int",
+                                                               "children": []
+                                                            }]
+                                                      }]
+                                                },
+                                                {
+                                                   "name": "Literal",
+                                                   "content": "2",
+                                                   "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:4)",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      }]
+                                                }]
+                                          }]
+                                    },
+                                    {
+                                       "name": "LocalVariable",
+                                       "content": "c",
+                                       "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:5)",
+                                       "children": [
+                                          {
+                                             "name": "TypeReference",
+                                             "content": "int",
+                                             "children": []
+                                          },
+                                          {
+                                             "name": "BinaryOperator",
+                                             "content": "*",
+                                             "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:5)",
+                                             "children": [
+                                                {
+                                                   "name": "TypeReference",
+                                                   "content": "int",
+                                                   "children": []
+                                                },
+                                                {
+                                                   "name": "VariableRead",
+                                                   "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:5)",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      },
+                                                      {
+                                                         "name": "LocalVariableReference",
+                                                         "content": "a",
+                                                         "children": [
+                                                            {
+                                                               "name": "TypeReference",
+                                                               "content": "int",
+                                                               "children": []
+                                                            }]
+                                                      }]
+                                                },
+                                                {
+                                                   "name": "VariableRead",
+                                                   "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:5)",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      },
+                                                      {
+                                                         "name": "LocalVariableReference",
+                                                         "content": "b",
+                                                         "children": [
+                                                            {
+                                                               "name": "TypeReference",
+                                                               "content": "int",
+                                                               "children": []
+                                                            }]
+                                                      }]
+                                                }]
+                                          }]
+                                    },
+                                    {
+                                       "name": "Return",
+                                       "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:6)",
+                                       "children": [
+                                          {
+                                             "name": "VariableRead",
+                                             "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FirstTest.java:6)",
+                                             "children": [
+                                                {
+                                                   "name": "TypeReference",
+                                                   "content": "int",
+                                                   "children": []
+                                                },
+                                                {
+                                                   "name": "LocalVariableReference",
+                                                   "content": "c",
+                                                   "children": [
+                                                      {
+                                                         "name": "TypeReference",
+                                                         "content": "int",
+                                                         "children": []
+                                                      }]
+                                                }]
+                                          }]
+                                    }]
                               }]
-                           }]
                         }]
-                     }]
-                  },
-                  {
-                     "name": "Return",
-                     "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:6)",
-                     "children": [
-                     {
-                        "name": "VariableRead",
-                        "code": "(/Users/MARQUES/Documents/GitHub/feup-comp/spoon2ast/FirstTest.java:6)",
-                        "children": [
-                        {
-                           "name": "TypeReference",
-                           "content": "int",
-                           "children": []
-                        },
-                        {
-                           "name": "LocalVariableReference",
-                           "content": "c",
-                           "children": [
-                           {
-                              "name": "TypeReference",
-                              "content": "int",
-                              "children": []
-                           }]
-                        }]
-                     }]
                   }]
-               }]
             }]
-         }]
       }]
-   }]
 }

@@ -73,6 +73,17 @@ public class DotGraph
 		startGraph(paramName);
 		edges = new StringBuilder();
 		graphName = paramName;
+
+		File tempDir = new File(TEMP_DIR);
+
+		if (!tempDir.exists()) {
+			try{
+				tempDir.mkdir();
+			}
+			catch(SecurityException e){
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public StringBuilder applyVertexOptions()

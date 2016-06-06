@@ -1,0 +1,328 @@
+{
+   "name": "Root",
+   "children": [
+   {
+      "name": "RootPackage",
+      "content": "",
+      "children": [
+      {
+         "name": "Package",
+         "content": "unnamed package",
+         "children": [
+         {
+            "name": "Class",
+            "content": "FifthTest",
+            "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:1)",
+            "children": [
+            {
+               "name": "Constructor",
+               "content": "FifthTest()",
+               "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:1)",
+               "children": [
+               {
+                  "name": "Block",
+                  "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:1)",
+                  "children": [
+                  {
+                     "name": "Invocation",
+                     "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:1)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "Object",
+                        "children": [
+                        {
+                           "name": "PackageReference",
+                           "content": "java.lang",
+                           "children": []
+                        }]
+                     },
+                     {
+                        "name": "ExecutableReference",
+                        "content": "<init>",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "Object",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "TypeReference",
+                           "content": "Object",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        }]
+                     }]
+                  }]
+               }]
+            },
+            {
+               "name": "Method",
+               "content": "test",
+               "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:3)",
+               "children": [
+               {
+                  "name": "TypeReference",
+                  "content": "void",
+                  "children": []
+               },
+               {
+                  "name": "Block",
+                  "children": [
+                  {
+                     "name": "LocalVariable",
+                     "content": "str",
+                     "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:4)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "String",
+                        "children": [
+                        {
+                           "name": "PackageReference",
+                           "content": "java.lang",
+                           "children": []
+                        }]
+                     },
+                     {
+                        "name": "ConstructorCall",
+                        "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:4)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "String",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "ExecutableReference",
+                           "content": "<init>",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "String",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.lang",
+                                 "children": []
+                              }]
+                           },
+                           {
+                              "name": "TypeReference",
+                              "content": "String",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.lang",
+                                 "children": []
+                              }]
+                           }]
+                        },
+                        {
+                           "name": "Literal",
+                           "content": "\"NEW_STRING\"",
+                           "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:4)",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "String",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.lang",
+                                 "children": []
+                              }]
+                           }]
+                        }]
+                     }]
+                  },
+                  {
+                     "name": "Invocation",
+                     "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:5)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "String",
+                        "children": [
+                        {
+                           "name": "PackageReference",
+                           "content": "java.lang",
+                           "children": []
+                        }]
+                     },
+                     {
+                        "name": "VariableRead",
+                        "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:5)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "String",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "LocalVariableReference",
+                           "content": "str",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "String",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.lang",
+                                 "children": []
+                              }]
+                           }]
+                        }]
+                     },
+                     {
+                        "name": "ExecutableReference",
+                        "content": "toString",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "String",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "TypeReference",
+                           "content": "String",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        }]
+                     }]
+                  },
+                  {
+                     "name": "Invocation",
+                     "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:6)",
+                     "children": [
+                     {
+                        "name": "TypeReference",
+                        "content": "void",
+                        "children": []
+                     },
+                     {
+                        "name": "FieldRead",
+                        "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:6)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "PrintStream",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.io",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "FieldReference",
+                           "content": "out",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "System",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.lang",
+                                 "children": []
+                              }]
+                           },
+                           {
+                              "name": "TypeReference",
+                              "content": "PrintStream",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.io",
+                                 "children": []
+                              }]
+                           }]
+                        }]
+                     },
+                     {
+                        "name": "ExecutableReference",
+                        "content": "println",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "PrintStream",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.io",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "TypeReference",
+                           "content": "void",
+                           "children": []
+                        }]
+                     },
+                     {
+                        "name": "VariableRead",
+                        "code": "(/Users/Diogo/IdeaProjects/feup-comp/proj1/test/FifthTest.java:6)",
+                        "children": [
+                        {
+                           "name": "TypeReference",
+                           "content": "String",
+                           "children": [
+                           {
+                              "name": "PackageReference",
+                              "content": "java.lang",
+                              "children": []
+                           }]
+                        },
+                        {
+                           "name": "LocalVariableReference",
+                           "content": "str",
+                           "children": [
+                           {
+                              "name": "TypeReference",
+                              "content": "String",
+                              "children": [
+                              {
+                                 "name": "PackageReference",
+                                 "content": "java.lang",
+                                 "children": []
+                              }]
+                           }]
+                        }]
+                     }]
+                  }]
+               }]
+            }]
+         }]
+      }]
+   }]
+}
